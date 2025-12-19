@@ -13,7 +13,7 @@ export default function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [thisMovie, setThisMovie] = useState<Movie | null>(null);
+  const [currentMovie, setCurrentMovie] = useState<Movie | null>(null);
 
   const handleSearch = async (query: string) => {
     try {
@@ -44,11 +44,14 @@ export default function App() {
       {isError && <ErrorMessage />}
 
       {movies.length > 0 && !isLoading && !isError && (
-        <MovieGrid movies={movies} onSelect={setThisMovie} />
+        <MovieGrid movies={movies} onSelect={setCurrentMovie} />
       )}
 
-      {thisMovie && (
-        <MovieModal movie={thisMovie} onClose={() => setThisMovie(null)} />
+      {currentMovie && (
+        <MovieModal
+          movie={currentMovie}
+          onClose={() => setCurrentMovie(null)}
+        />
       )}
     </>
   );
